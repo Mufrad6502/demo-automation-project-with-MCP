@@ -24,7 +24,13 @@ This project is set up for automation testing using Playwright. It includes exam
    npm install
    ```
 
-3. Run the tests:
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit the `.env` file with your actual credentials.
+
+4. Run the tests:
    ```bash
    npx playwright test
    ```

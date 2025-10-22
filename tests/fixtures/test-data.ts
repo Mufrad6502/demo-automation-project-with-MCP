@@ -1,19 +1,22 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export const users = {
     standard: {
-        username: 'standard_user',
-        password: 'secret_sauce'
+        username: process.env.STANDARD_USER || 'standard_user',
+        password: process.env.STANDARD_PASSWORD || 'secret_sauce'
     },
     locked: {
-        username: 'locked_out_user',
-        password: 'secret_sauce'
+        username: process.env.LOCKED_USER || 'locked_out_user',
+        password: process.env.LOCKED_PASSWORD || 'secret_sauce'
     },
     problem: {
-        username: 'problem_user',
-        password: 'secret_sauce'
+        username: process.env.PROBLEM_USER || 'problem_user',
+        password: process.env.PROBLEM_PASSWORD || 'secret_sauce'
     },
     performance: {
-        username: 'performance_glitch_user',
-        password: 'secret_sauce'
+        username: process.env.PERFORMANCE_USER || 'performance_glitch_user',
+        password: process.env.PERFORMANCE_PASSWORD || 'secret_sauce'
     },
     error: {
         username: 'error_user',
