@@ -28,7 +28,15 @@ This project is set up for automation testing using Playwright. It includes exam
    ```bash
    cp .env.example .env
    ```
-   Then edit the `.env` file with your actual credentials.
+   
+   Edit the `.env` file with your actual credentials. You can get the test credentials from:
+   - https://www.saucedemo.com/ (for public test users)
+   - Your team lead or project documentation (for private credentials)
+
+   IMPORTANT: 
+   - Never commit the `.env` file to the repository
+   - Never share your credentials in public
+   - If you accidentally commit credentials, change them immediately
 
 4. Run the tests:
    ```bash

@@ -1,22 +1,35 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+// Function to get required environment variables
+const getRequiredEnvVar = (key: string): string => {
+    const value = process.env[key];
+    if (!value) {
+        throw new Error(
+            `Required environment variable "${key}" is not set. ` +
+            `Please check your .env file and make sure it contains all required variables. ` +
+            `You can use .env.example as a template.`
+        );
+    }
+    return value;
+};
+
 export const users = {
     standard: {
-        username: process.env.STANDARD_USER || 'standard_user',
-        password: process.env.STANDARD_PASSWORD || 'secret_sauce'
+        username: getRequiredEnvVar('STANDARD_USER'),
+        password: getRequiredEnvVar('STANDARD_PASSWORD')
     },
     locked: {
-        username: process.env.LOCKED_USER || 'locked_out_user',
-        password: process.env.LOCKED_PASSWORD || 'secret_sauce'
+        username: getRequiredEnvVar('LOCKED_USER'),
+        password: getRequiredEnvVar('LOCKED_PASSWORD')
     },
     problem: {
-        username: process.env.PROBLEM_USER || 'problem_user',
-        password: process.env.PROBLEM_PASSWORD || 'secret_sauce'
+        username: getRequiredEnvVar('PROBLEM_USER'),
+        password: getRequiredEnvVar('PROBLEM_PASSWORD')
     },
     performance: {
-        username: process.env.PERFORMANCE_USER || 'performance_glitch_user',
-        password: process.env.PERFORMANCE_PASSWORD || 'secret_sauce'
+        username: getRequiredEnvVar('PERFORMANCE_USER'),
+        password: getRequiredEnvVar('PERFORMANCE_PASSWORD')
     },
     error: {
         username: 'error_user',
