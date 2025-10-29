@@ -14,11 +14,13 @@ test.describe('Inventory Page E2E Tests', () => {
         inventoryPage = new InventoryPage(page);
         cartPage = new CartPage(page);
 
+        // Navigate and login with network state checks
         await loginPage.goto();
         await loginPage.login(users.standard.username, users.standard.password);
         
-        // Wait for inventory page to be fully loaded
+        // Ensure we're on inventory page and content is loaded
         await expect(page).toHaveURL(/.*inventory.html/);
+        await page.waitForLoadState('networkidle');
         await expect(inventoryPage.addToCartButtons).toHaveCount(6);
     });
 

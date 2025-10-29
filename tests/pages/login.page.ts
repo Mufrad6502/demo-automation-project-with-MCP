@@ -17,11 +17,14 @@ export class LoginPage {
 
     async goto() {
         await this.page.goto('https://www.saucedemo.com/');
+        await this.page.waitForLoadState('networkidle');
     }
 
     async login(username: string, password: string) {
         await this.usernameInput.fill(username);
         await this.passwordInput.fill(password);
         await this.loginButton.click();
+        // Wait for navigation and network requests to complete
+        await this.page.waitForLoadState('networkidle');
     }
 }

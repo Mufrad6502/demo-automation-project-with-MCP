@@ -34,19 +34,22 @@ export class InventoryPage {
 
     async addItemToCart(index = 0) {
         await this.addToCartButtons.nth(index).click();
+        await this.page.waitForLoadState('networkidle');
     }
 
     async removeItemFromCart(index = 0) {
         await this.removeButtons.nth(index).click();
+        await this.page.waitForLoadState('networkidle');
     }
 
     async goToCart() {
         await this.cartButton.click();
+        await this.page.waitForLoadState('networkidle');
     }
 
     async sortBy(option: string) {
-        // Get initial first product name for comparison
-        const initialName = await this.productNames.first().textContent();
+        await this.sortDropdown.selectOption(option);
+        await this.page.waitForLoadState('networkidle');
         
         // Perform sorting
         await this.sortDropdown.selectOption(option);
