@@ -15,6 +15,8 @@ This project is set up for automation testing using Playwright. It includes exam
 
 ## Setup Instructions
 
+### Local Setup
+
 1. Clone the repository:
    ```bash
    git clone <repository-url>
@@ -25,6 +27,44 @@ This project is set up for automation testing using Playwright. It includes exam
    ```bash
    npm install
    ```
+
+### Docker Setup
+
+You can also run tests in Docker containers, which ensures consistent test environments and multi-browser testing:
+
+1. Make sure you have Docker and Docker Compose installed:
+   ```bash
+   docker --version
+   docker-compose --version
+   ```
+
+2. Build the Docker containers:
+   ```bash
+   docker-compose build
+   ```
+
+3. Run tests in all browsers (Chrome, Firefox, and WebKit):
+   ```bash
+   docker-compose up
+   ```
+
+   Or run tests in specific browsers:
+   ```bash
+   docker-compose up chrome-tests    # Run only Chrome tests
+   docker-compose up firefox-tests   # Run only Firefox tests
+   docker-compose up webkit-tests    # Run only WebKit tests
+   ```
+
+4. To stop the containers:
+   ```bash
+   docker-compose down
+   ```
+
+The Docker setup provides:
+- Isolated test environment
+- Parallel test execution across browsers
+- Consistent browser versions
+- No need to install browsers locally
 
 3. Set up environment variables:
    ```bash
