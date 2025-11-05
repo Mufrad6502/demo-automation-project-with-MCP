@@ -6,16 +6,30 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+  reporter: [['html', { open: 'never' }], ['list']],
   use: {
-    headless: false,  // Run in headed mode by default
+    headless: true,  // Always run headless in Docker
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'on-first-retry',
   },
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--no-sandbox', '--disable-setuid-sandbox']
+        }
+      },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 });

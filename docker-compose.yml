@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  chrome-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BROWSER=chromium
+    command: npx playwright test --project=chromium
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - .env:/app/.env
+
+  firefox-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BROWSER=firefox
+    command: npx playwright test --project=firefox
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - .env:/app/.env
+
+  webkit-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - BROWSER=webkit
+    command: npx playwright test --project=webkit
+    volumes:
+      - ./test-results:/app/test-results
+      - ./playwright-report:/app/playwright-report
+      - .env:/app/.env

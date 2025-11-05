@@ -10,21 +10,16 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chrome-tests, firefox-tests, webkit-tests]
+      fail-fast: false
     
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-      
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
     
     - name: Create env file
       run: |
@@ -37,12 +32,14 @@ jobs:
         echo "PERFORMANCE_USER=${{ secrets.PERFORMANCE_USER }}" >> .env
         echo "PERFORMANCE_PASSWORD=${{ secrets.PERFORMANCE_PASSWORD }}" >> .env
     
-    - name: Run Playwright tests
-      run: npm run test
+    - name: Run Playwright Docker Tests
+      run: |
+        docker-compose build ${{ matrix.browser }}
+        docker-compose run ${{ matrix.browser }}
     
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: playwright-report
+        name: playwright-report-${{ matrix.browser }}
         path: playwright-report/
         retention-days: 30
